@@ -18,5 +18,13 @@ def event_details():
 def book_event():
     return render_template("bookevent.html")
 
+@app.route("/login")
+def book_event():
+    return render_template("loginform.html")
+
+@app.route("/register")
+def book_event():
+    return render_template("register.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
