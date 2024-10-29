@@ -26,5 +26,9 @@ def book_event():
 def book_event():
     return render_template("register.html")
 
+#@app.route("/update")
+#def book_event():
+    #return render_template("eventupdate.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
