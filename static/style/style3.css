@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar{
+    font-size: 16px;
+    top: 0;
+    left: 0;
+    box-shadow: 0 0 25px 0 black;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    padding: 0 20px;
+    color: #1d1d1d;
+    transition: 0.3s ease;
+}
+
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar i:hover, 
+.navbar-light .navbar-nav .nav-link.active,
+.navbar i.active {
+    color: rgba(245, 178, 178, 0.7);
+}
+
+.navbar i{
+    font-size: 1.2rem;
+    padding: 0 7px;
+    cursor:pointer;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+.box{
+    width: 600px;
+    height: 550px;
+    margin: auto;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.box .header{
+    background-color: #000;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.box .header p{
+    text-align: center;
+    padding: 5px;
+    font-size: 20px;
+    color: white;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+form{
+    display: flexbox;
+    width: 540px;
+    height: auto;
+    margin: auto;
+    padding: 5px;
+}
+
+.row{
+    padding: 8px;
+    margin-top: 7px;
+}
+
+.row .col-2{
+    text-align: center;
+}
+
+.row .col-4 input{
+    background: #f2f2f2;
+    border: none;
+    outline: none;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+.row .col-8 input{
+    background: #f2f2f2;
+    border: none;
+    outline: none;
+    padding: 3px;
+    border-radius: 5px;
+    width: 385px;
+}
+
+.row .col-3 input{
+    background: #f2f2f2;
+    border: none;
+    outline: none;
+    padding: 3px;
+    border-radius: 5px;
+    width: 100px;
+}
+
+.row .col-5 input{
+    background: #f2f2f2;
+    border: none;
+    outline: none;
+    padding: 3px;
+    border-radius: 5px;
+    width: 150px;
+}
+
+.row .col-6 p{
+    text-align: center;
+}
+
+.row .col-9 input{
+    margin-right: 20px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.row .col-6 button{
+    margin-left: 50px;
+}
+
+
+footer{
+    background-color: #3a3833;
+}
+
+footer h5{
+    color: white;
+    font-weight: 700;
+    font-size: 1.2;
+}
+
+footer li{
+    padding-bottom: 4px;
+}
+footer li a{
+    font-size: 0.8rem;
+    color: grey;
+}
+
+footer li a:hover{
+    font-size: 0.8rem;
+    color: white;
+}
+
+footer p{
+    color: #999;
+    font-size: 0.8rem;
+}
+
+h6 {
+    color: #D8D8D8
+}
