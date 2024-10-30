@@ -27,7 +27,7 @@ def register():
     return render_template('register.html')
 
 #@app.route("/update")
-#def book_event():
+#def event_update():
     #return render_template("eventupdate.html")
 
 if __name__ == "__main__":
