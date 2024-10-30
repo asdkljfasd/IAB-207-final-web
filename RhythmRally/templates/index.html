@@ -26,19 +26,19 @@
       <ul class="navbar-nav ml-auto">
 
         <li class="nav-item">
-          <a class="nav-link" href="index.html">Home</a>
+          <a class="nav-link" href="{{url_for('home')}}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="eventdetails.html">Events</a>
+          <a class="nav-link" href="{{url_for('event_details')}}">Events</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="bookevent.html">Create Events</a>
+          <a class="nav-link" href="{{url_for('book_event')}}">Create Events</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="bookinghistory.html">Booking History</a>
+          <a class="nav-link" href="{{url_for('booking_history')}}">Booking History</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Login or Signup</a>
+            <a class="nav-link" href="{{url_for('login_form')}}">Login or Signup</a>
           </li>
        
     </div>
