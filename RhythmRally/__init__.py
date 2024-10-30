@@ -4,6 +4,7 @@ from flask_bootstrap import Bootstrap5
 import os
 
 
+
 db = SQLAlchemy()
         
 def create_app():
@@ -19,7 +20,13 @@ def create_app():
     db.init_app(app)
     
     from .models import User, Event, Ticket, TicketStatus, Purchase, Review
+    from .views import mainbp
+    app.register_blueprint(mainbp)
     
+    @app.errorhandler(404) 
+    # inbuilt function which takes error as parameter 
+    def not_found(e): 
+      return render_template("404.html", error=e)
     
     
     return app

@@ -34,19 +34,19 @@
     <ul class="navbar-nav ml-auto">
 
       <li class="nav-item">
-        <a class="nav-link" href="{{url_for('home')}}">Home</a>
+        <a class="nav-link" href="{{url_for('main.home')}}">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{url_for('event_details')}}">Events</a>
+        <a class="nav-link" href="{{url_for('main.event_details')}}">Events</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{url_for('book_event')}}">Create Events</a>
+        <a class="nav-link" href="{{url_for('main.book_event')}}">Create Events</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{url_for('booking_history')}}">Booking History</a>
+        <a class="nav-link" href="{{url_for('main.booking_history')}}">Booking History</a>
       </li>
       <li class="nav-item">
-          <a class="nav-link" href="{{url_for('login_form')}}">Login or Signup</a>
+          <a class="nav-link" href="{{url_for('main.login_form')}}">Login or Signup</a>
         </li>
      
   </div>
@@ -69,7 +69,7 @@
             <option>Seated Ticket</option>
         </select>
         <input type="number" value="1">
-        <a href="{{ url_for('booking_history') }}" style="background-color: #1d1d1d; font-size: 0.8rem; font-weight: 700; outline: none; border: none; color: aliceblue; padding: 13px 30px; cursor: pointer; text-transform: uppercase; transition: 0.3s ease;" class="btn btn-primary">Buy Ticket</a>
+        <a href="{{ url_for('main.booking_history') }}" style="background-color: #1d1d1d; font-size: 0.8rem; font-weight: 700; outline: none; border: none; color: aliceblue; padding: 13px 30px; cursor: pointer; text-transform: uppercase; transition: 0.3s ease;" class="btn btn-primary">Buy Ticket</a>
         <h4 class="mt-4 mb-4">Ticket Details</h4>
         <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
         </div>
