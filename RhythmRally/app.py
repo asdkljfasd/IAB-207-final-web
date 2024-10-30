@@ -19,12 +19,12 @@ def book_event():
     return render_template("bookevent.html")
 
 @app.route("/login")
-def book_event():
-    return render_template("loginform.html")
+def login_form():
+    return render_template('loginform.html')
 
 @app.route("/register")
-def book_event():
-    return render_template("register.html")
+def register():
+    return render_template('register.html')
 
 #@app.route("/update")
 #def book_event():
