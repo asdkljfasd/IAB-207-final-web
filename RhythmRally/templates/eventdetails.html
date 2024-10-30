@@ -68,7 +68,7 @@
             <option>Seated Ticket</option>
         </select>
         <input type="number" value="1">
-        <button class="buy-btn" onclick="window.location.href='bookinghistory.html'">Book Event</button>
+        <a href="{{ url_for('booking_history') }}" style="background-color: #1d1d1d; font-size: 0.8rem; font-weight: 700; outline: none; border: none; color: aliceblue; padding: 13px 30px; cursor: pointer; text-transform: uppercase; transition: 0.3s ease;" class="btn btn-primary">Buy Ticket</a>
         <h4 class="mt-4 mb-4">Ticket Details</h4>
         <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
         </div>
