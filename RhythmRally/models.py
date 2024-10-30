@@ -1,5 +1,5 @@
-from test import db
-
+from . import db
+from datetime import datetime
 class User(db.Model):
     __tablename__ = 'users'
     user_id = db.Column(db.Integer, primary_key=True)
@@ -14,7 +14,7 @@ class User(db.Model):
     purchases = db.relationship('Purchase', backref='user', lazy='select')
 
     def __repr__(self):
-        return f"<User user_id={self.user_id}, name='{self.name}', email='{self.email}', user_status='{self.user_status}'>"
+        return f"<User user_id={self.user_id}, firstname='{self.firstname}',surname = {self.surname}, email='{self.email}', user_status='{self.user_status}'>"
 
 
 class Event(db.Model):

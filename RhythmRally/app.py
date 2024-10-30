@@ -20,6 +20,7 @@ def book_event():
 
 @app.route("/login")
 def login_form():
+    
     return render_template('loginform.html')
 
 @app.route("/register")
