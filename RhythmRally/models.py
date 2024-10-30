@@ -1,5 +1,18 @@
 from test import db
 
+#not sure where to add this, but i need these imports for the user authentication table. (not sure if this is in models.py or test.py)
+
+#from flask login import UserMixin
+#from flask_wtf import wtforms
+#from wtforms import Stringfield, Passwordfield, Submitfield
+#from wtforms.validators import InputRequired, Length, ValidationError
+
+
+
+
+
+
+
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
     user_id = db.Column(db.Integer, primary_key=True)
