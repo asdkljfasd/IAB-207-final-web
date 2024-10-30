@@ -20,4 +20,6 @@ def create_app():
     
     from .models import User, Event, Ticket, TicketStatus, Purchase, Review
     
+    
+    
     return app
