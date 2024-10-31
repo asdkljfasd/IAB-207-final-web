@@ -375,19 +375,23 @@
     <section class="writingreview">
         <div class="wrapper">
             <h3> Lorem ipsum dolor sit amet.</h3>
-            <form action="#">
+            <form action="{{ url_for('main.submit_review') }}" method="POST">
+              <input type="hidden" name="event_id" value="{{ event.event_id }}">
                 <div class="rating">
-                    <input type="number" name="rating" hidden>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
+                    <label for="rating">Rating (1-5):</label>
+                    <select name="rating" id="rating" required>
+                        <option value="">Select Rating</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
                 </div>
-                <textarea name="opinion" cols="30" rows="5" placeholder="Your Opinion..."></textarea>
+                <textarea name="comment" cols="30" rows="5" placeholder="Your Opinion..." required></textarea>
                 <div class="btn-group">
                     <button type="submit" class="btn submit">Submit</button>
-                    <button class="btn cancel">Cancel</button>
+                    <button type="clear" class="btn clear">Clear</button>
                 </div>
             </form>
         </div>

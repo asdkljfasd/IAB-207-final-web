@@ -32,3 +32,6 @@ class EventForm(FlaskForm):
     start_time = DateTimeField('Start Time', validators= [InputRequired("Please Enter a Start Time")])
     end_time = DateTimeField('End Time', validators= [InputRequired("Please Enter an End Time")])
     ticket_price = StringField('Ticket Price', validators= [InputRequired("Please Enter a Ticket Price")])
+    
+class ReviewForm(FlaskForm):
+    

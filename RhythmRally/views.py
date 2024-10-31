@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, request, redirect, url_for, flash
 from . import db
 from .forms import RegisterForm
-from .models import Event
+from .models import Event, Review
+from flask_login import current_user
 
 # Create a Blueprint
 mainbp = Blueprint('main', __name__)
@@ -18,10 +19,8 @@ def booking_history():
 
 @mainbp.route("/details")
 def event_details():
-    events = db.session.scalars(db.select(Event)).all() 
-    print(events[0])
-    
-    return render_template("eventdetails.html", event = events[0])
+    event = db.session.scalars(db.select(Event).where(Event.event_id == event_id))
+    return render_template("eventdetails.html", event = event)
 
 @mainbp.route("/booking")
 def book_event():
@@ -31,4 +30,26 @@ def book_event():
 def user_register():
     form = RegisterForm() 
     return render_template("user.html", form=form, heading='Register')
+
+@mainbp.route('/submit_review', methods=['POST'])
+def submit_review():
+    if request.method == 'POST':
+        rating = request.form.get('rating')
+        comment = request.form.get('comment')
+        event_id = request.form.get('event_id')
+        
+        new_review = Review(user_id = current_user.user_id, event_id = event_id, comment = comment, posted_datetime = datetime.now(), rating = int(rating))
+        
+        try:
+            db.session.add(new_review)
+            db.session.commit()
+            flash("Review submitted.")
+        except Exception as e:
+                db.session.rollback()
+                flash(f"An error occurred: {e}")
+                
+        return redirect(url_for('main.event_details', event_id=event_id))
+    else:
+        flash("You need to be logged in to post a review.")
+            return redirect(url_for('auth.login'))
 
