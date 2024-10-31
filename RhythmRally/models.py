@@ -9,6 +9,7 @@ class User(db.Model):
     username = db.Column(db.String(50), nullable=False, unique=True)  # Username should be unique
     email = db.Column(db.String(50), nullable=True, unique=True)  # Email should be unique
     password = db.Column(db.String(50), nullable=False)
+    address = db.Column(db.String(100), nullable=False)
     user_status = db.Column(db.String(20), nullable=False)
 
     # Relationships
@@ -17,15 +18,16 @@ class User(db.Model):
     events = db.relationship('Event', backref='user', lazy='select')
 
     def __repr__(self):
-        return f"<User user_id={self.user_id}, firstname='{self.firstname}', surname='{self.surname}', username='{self.username}', email='{self.email}', user_status='{self.user_status}'>"
+        return f"<User user_id={self.user_id}, firstname='{self.firstname}', surname='{self.surname}', username='{self.username}', email='{self.email}', address = {self.address} user_status='{self.user_status}'>"
 
 
 class Event(db.Model):
     __tablename__ = 'events'
     event_id = db.Column(db.Integer, primary_key=True)
+    event_name = db.Column(db.String(50), nullable=False)
     event_creator_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)  # No unique constraint
     artist_name = db.Column(db.String(50), nullable=False)
-    event_location = db.Column(db.String(50), nullable=False)
+    event_venue = db.Column(db.String(50), nullable=False)
     date = db.Column(db.DateTime, nullable=False)
     category = db.Column(db.String(30), nullable=False)
     description = db.Column(db.String(200), nullable=False)
@@ -35,7 +37,7 @@ class Event(db.Model):
     reviews = db.relationship('Review', backref='event', lazy='select')
 
     def __repr__(self):
-        return f"<Event event_id={self.event_id}, event_creator_id={self.event_creator_id}, artist_name='{self.artist_name}', location='{self.event_location}', date='{self.date}', category='{self.category}'>"
+        return f"<Event event_id={self.event_id},event_name = {self.event_name}, event_creator_id={self.event_creator_id}, artist_name='{self.artist_name}', venue ='{self.event_venue}', date='{self.date}', category='{self.category}'>"
 
 
 class Ticket(db.Model):

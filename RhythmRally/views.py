@@ -25,7 +25,7 @@ def book_event():
 
 @mainbp.route("/login")
 def login_form():
-    return render_template('loginform.html')
+    return render_template('login_form.html')
 
 @mainbp.route("/register")
 def register():
