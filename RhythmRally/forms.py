@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, DateTimeField
-from wtforms.validators import InputRequired, Length, Email, EqualTo, InputRequired
+from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField
+from wtforms.validators import InputRequired, Length, Email, EqualTo
 from flask_wtf.file import FileRequired, FileField, FileAllowed
 
 #User login
@@ -10,8 +10,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField("Login")
 
 class RegisterForm(FlaskForm):
-    first_name = StringField("First Name", validators=[InputRequired()])
-    surname = StringField("Surname", validators=[InputRequired()])
+    username = StringField("Username", validators=[InputRequired()])
     email = StringField("Email Address", validators=[Email("Please enter a valid email")])
     password = PasswordField("Password", validators=[
         InputRequired(),
@@ -23,7 +22,7 @@ class RegisterForm(FlaskForm):
     
     # Submit button
     submit = SubmitField("Register")
-
+    
 class EventForm(FlaskForm):
     eventname = StringField('Event Name', validators= [InputRequired("Please Enter the Event Name")])
     artistname = StringField('Artist Name', validators= [InputRequired("Please Enter the Artist Name")])

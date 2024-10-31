@@ -3,28 +3,18 @@ from datetime import datetime
 from flask_login import UserMixin
 
 class User(db.Model, UserMixin):
-    __tablename__ = 'users'
-    user_id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(50), nullable=False)
-    surname = db.Column(db.String(50), nullable=False)
-    email = db.Column(db.String(50), nullable=False, unique = True)
-    password = db.Column(db.String(50), nullable=False)
-    contact_number = db.Column(db.String(20), nullable=False)
-    street_address = db.Column(db.String(200), nullable=False)
-
-    # Relationships
-    reviews = db.relationship('Review', backref='user', lazy='select')
-    purchases = db.relationship('Purchase', backref='user', lazy='select')
-    events = db.relationship('Event', backref='user', lazy='select')
-
-    def __repr__(self):
-        return f"<User user_id={self.user_id}, firstname='{self.first_name}', surname='{self.surname}', username='{self.username}', email='{self.email}', user_status='{self.user_status}'>"
+    __tablename__ = 'users' 
+    id = db.Column(db.Integer, primary_key=True)  # This is the correct primary key
+    name = db.Column(db.String(100), index=True, unique=True, nullable=False)
+    emailid = db.Column(db.String(100), index=True, nullable=False)
+    password_hash = db.Column(db.String(255), nullable=False)
+    contact_number = db.Column(db.String(15), nullable=False)  
+    street_address = db.Column(db.String(100), nullable=False)
     
-    def set_password(self, password):
-        self.password = generate_password_hash(password)
-
-    def check_password(self, password):
-        return check_password_hash(self.password, password)
+    
+    # String representation method
+    def __repr__(self):
+        return f"Name: {self.name}"
 
 class Event(db.Model):
     __tablename__ = 'events'
