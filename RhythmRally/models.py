@@ -11,6 +11,11 @@ class User(db.Model, UserMixin):
     contact_number = db.Column(db.String(15), nullable=False)  
     street_address = db.Column(db.String(100), nullable=False)
     
+        # Relationships
+    reviews = db.relationship('Review', backref='user', lazy='select')
+    purchases = db.relationship('Purchase', backref='user', lazy='select')
+    events = db.relationship('Event', backref='user', lazy='select')
+
     
     # String representation method
     def __repr__(self):
