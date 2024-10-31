@@ -1,7 +1,7 @@
 from flask import Blueprint, request, redirect, url_for, flash, render_template
 from . import db
 from .forms import RegisterForm
-from .models import Event, Review
+from .models import Event, Review, Purchase
 from flask_login import current_user, login_required
 from datetime import datetime
 
@@ -15,8 +15,10 @@ def home():
     return render_template("index.html")
 
 @mainbp.route("/history")
+@login_required
 def booking_history():
-    return render_template("bookinghistory.html")
+    user_purchases = db.session.scalars(select(Purchase).where(Purchase.user_id == current_user.user_id)).all()
+    return render_template("bookinghistory.html", purchases = user_purchases)
 
 @mainbp.route("/details/<int:event_id>")
 def event_details():
