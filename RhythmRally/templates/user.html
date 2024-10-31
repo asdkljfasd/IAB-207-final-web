@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% from 'bootstrap5/form.html' import render_form %}
+
+{% block content %}
+<div class="container mt-6">  <!-- Add margin top to create space from the navbar -->
+    <div class="row justify-content-center align-items-center form-container">
+        <div class="col-md-6 mb-5">
+            <h4 class="text-center">{{ heading }}</h4>
+            <form action="{{ url_for('auth.login') if heading == 'Login' else url_for('auth.register') }}" method="POST">
+                {{ render_form(form) }}
+            </form>
+        </div>
+
+        {% if heading|lower == 'login' %}
+        <div class="col-md-4 mb-5">
+            <p>New User? <a href="{{ url_for('auth.register') }}">Register here</a>.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
