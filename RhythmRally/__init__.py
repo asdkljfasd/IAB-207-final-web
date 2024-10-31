@@ -14,8 +14,11 @@ def create_app():
     app.secret_key = 'testing123'
     # Initialize SQLAlchemy with the Flask app
 
-    # Configue and initialise DB
+    # Configure and initialise DB
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///rhythm_rally.sqlite'
+    # Configure image upload folder
+    UPLOAD_FOLDER = '/static/image'
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER 
     db.init_app(app)
 
     login_manager.login_view = 'auth.login'  # Redirect to the login page if not logged in
@@ -37,10 +40,12 @@ def create_app():
     def not_found(e): 
       return render_template("500.html", error=e)
     
-    from .views import mainbp
-    app.register_blueprint(mainbp)
+    from . import views
+    app.register_blueprint(views.mainbp)
     from . import auth
     app.register_blueprint(auth.authbp)
+    from . import event
+    app.register_blueprint(event.eventbp)
     
     return app
 

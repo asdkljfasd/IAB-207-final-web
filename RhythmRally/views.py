@@ -19,42 +19,10 @@ def home():
 def booking_history():
     user_purchases = db.session.scalars(select(Purchase).where(Purchase.user_id == current_user.user_id)).all()
     return render_template("bookinghistory.html", purchases = user_purchases)
-
-@mainbp.route("/details/<int:event_id>")
-def event_details():
-    event = db.session.scalar(db.select(Event).where(Event.event_id == event_id))
-    reviews = db.session.scalars(db.select(Review).where(Review.event_id == event_id)).all()
-    return render_template("eventdetails.html", event = event, reviews = reviews)
-
-@mainbp.route("/booking")
-def book_event():
-    return render_template("bookevent.html")
-
 @mainbp.route("/user")
 def user_register():
     form = RegisterForm() 
     return render_template("user.html", form=form, heading='Register')
 
-@mainbp.route('/submit_review', methods=['POST'])
-@login_required
-def submit_review():
-    if request.method == 'POST':
-        rating = request.form.get('rating')
-        comment = request.form.get('comment')
-        event_id = request.form.get('event_id')
-        
-        new_review = Review(user_id = current_user.user_id, event_id = event_id, comment = comment, posted_datetime = datetime.now(), rating = int(rating))
-        
-        try:
-            db.session.add(new_review)
-            db.session.commit()
-            flash("Review submitted.")
-        except Exception as e:
-                db.session.rollback()
-                flash(f"An error occurred: {e}")
-                
-        return redirect(url_for('main.event_details', event_id=event_id))
-    else:
-        flash("You need to be logged in to post a review.")
-        return redirect(url_for('auth.login'))
+
 

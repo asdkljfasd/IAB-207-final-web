@@ -35,14 +35,15 @@ class Event(db.Model):
     event_name = db.Column(db.String(100), nullable=False)
     event_creator_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)  
     artist_name = db.Column(db.String(50), nullable=False)
+    event_image = db.Column(db.String(400))
     event_venue = db.Column(db.String(50), nullable=False)
     event_date = db.Column(db.Date, nullable=False)
     event_start_time = db.Column(db.Time, nullable=False)
     event_end_time = db.Column(db.Time, nullable=False)
     event_ticket_price = db.Column(db.Float, nullable=False)
     tickets_available = db.Column(db.Integer, nullable=False) 
-    category = db.Column(db.String(30), nullable=False)
-    description = db.Column(db.String(200), nullable=False)
+    event_category = db.Column(Enum('Jazz','Pop', 'Rock', 'RnB','Country','HipHop' name = 'event_category_enum'), nullable = False)
+    event_description = db.Column(db.String(200), nullable=False)
     event_state = db.Column(Enum('Open','Inactive', 'Sold Out', 'Cancelled', name = 'event_state_enum'), nullable = False, default = 'Open')
 
     # Relationships
