@@ -2,7 +2,8 @@ from flask import Blueprint, request, redirect, url_for, flash, render_template
 from . import db
 from .forms import RegisterForm
 from .models import Event, Review
-from flask_login import current_user
+from flask_login import current_user, login_required
+from datetime import datetime
 
 # Create a Blueprint
 mainbp = Blueprint('main', __name__)
@@ -17,10 +18,11 @@ def home():
 def booking_history():
     return render_template("bookinghistory.html")
 
-@mainbp.route("/details")
+@mainbp.route("/details/<int:event_id>")
 def event_details():
-    event = db.session.scalars(db.select(Event).where(Event.event_id == event_id))
-    return render_template("eventdetails.html", event = event)
+    event = db.session.scalar(db.select(Event).where(Event.event_id == event_id))
+    reviews = db.session.scalars(db.select(Review).where(Review.event_id == event_id)).all()
+    return render_template("eventdetails.html", event = event, reviews = reviews)
 
 @mainbp.route("/booking")
 def book_event():
@@ -32,6 +34,7 @@ def user_register():
     return render_template("user.html", form=form, heading='Register')
 
 @mainbp.route('/submit_review', methods=['POST'])
+@login_required
 def submit_review():
     if request.method == 'POST':
         rating = request.form.get('rating')

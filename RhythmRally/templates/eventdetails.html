@@ -256,119 +256,26 @@
             <hr>
             <p>Comments and Ratings</p>
         </div>
-
         <div class="reviews-container">
+          {% for review in reviews %}
             <div class="reviews-box">
                 <div class="box-top">
                     <div class="profile">
-                        <div class="profile-img">
-                            <img src="static/Images/profile-pic.jpg">
-                        </div>
                         <div class="name-user">
-                            <strong>Darren Ibrahimovic</strong>
-                            <span>@darrenibrahimovic</span>
+                            <strong>{{review.user.first_name}} {{review.user.surname}}</strong>
+                            <span>@{{review.user.emailid}}</span>
                         </div>
                     </div>
                     <div class="reviews">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <p>Rating: {{review.rating}} / 5</p>
                     </div>
                 </div>
                 <div class="client-comment">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                        voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                    <p>{{review.comment}}</p>
+                    <p>Review posted on: {{review.posted_datetime}}</p>
                 </div>
             </div>
-
-            <!-- Second review box -->
-            <div class="reviews-box">
-                <div class="box-top">
-                    <div class="profile">
-                        <div class="profile-img">
-                            <img src="static/Images/profile-pic.jpg">
-                        </div>
-                        <div class="name-user">
-                            <strong>Semaj Ronaldo</strong>
-                            <span>@semajepalo</span>
-                        </div>
-                    </div>
-                    <div class="reviews">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                </div>
-                <div class="client-comment">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                        voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                </div>
-            </div>
-
-            <!-- Third review box -->
-            <div class="reviews-box">
-                <div class="box-top">
-                    <div class="profile">
-                        <div class="profile-img">
-                            <img src="static/Images/profile-pic.jpg">
-                        </div>
-                        <div class="name-user">
-                            <strong>Dre Parker</strong>
-                            <span>@Dre Parker</span>
-                        </div>
-                    </div>
-                    <div class="reviews">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                </div>
-                <div class="client-comment">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                        voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                </div>
-            </div>
-
-            <!-- Fourth review box -->
-            <div class="reviews-box">
-                <div class="box-top">
-                    <div class="profile">
-                        <div class="profile-img">
-                            <img src="static/Images/profile-pic.jpg">
-                        </div>
-                        <div class="name-user">
-                            <strong>Tyfart Keegan</strong>
-                            <span>@tyfartkeegan</span>
-                        </div>
-                    </div>
-                    <div class="reviews">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                </div>
-                <div class="client-comment">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                        voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                </div>
-            </div>
-        </div>
+            {% endfor %}
     </section>
 
     <!-- WRITING A REVIEW -->
@@ -395,7 +302,6 @@
                 </div>
             </form>
         </div>
-
     </section>
 
     <!-- FOOTER -->

@@ -80,6 +80,9 @@ class Review(db.Model):
     comment = db.Column(db.String(200), nullable=False)
     posted_datetime = db.Column(db.DateTime, nullable=False)
     rating = db.Column(db.Integer, nullable=False)
+    
+    # Relationships
+    user = db.relationship('User', backref='user_reviews', lazy='select')
 
     def __repr__(self):
         return f"<Review comment_id={self.comment_id}, user_id={self.user_id}, event_id={self.event_id}, comment='{self.comment}', posted_datetime={self.posted_datetime}, rating={self.rating}>"
