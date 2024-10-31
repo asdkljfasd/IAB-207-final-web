@@ -23,7 +23,7 @@ class RegisterForm(FlaskForm):
     # Submit button
     submit = SubmitField("Register")
     
-class EventForm(FlaskForm):
+"""class EventForm(FlaskForm):
     eventname = StringField('Event Name', validators= [InputRequired("Please Enter the Event Name")])
     artistname = StringField('Artist Name', validators= [InputRequired("Please Enter the Artist Name")])
     description = TextAreaField('Description', validators= [InputRequired("Please Enter a Description")])
@@ -34,4 +34,4 @@ class EventForm(FlaskForm):
     ticket_price = FloatField('Ticket Price', validators= [InputRequired("Please Enter a Ticket Price")])
     
 class ReviewForm(FlaskForm):
-    
+    """

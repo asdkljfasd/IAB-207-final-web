@@ -1,4 +1,4 @@
-from flask import Blueprint, request, redirect, url_for, flash
+from flask import Blueprint, request, redirect, url_for, flash, render_template
 from . import db
 from .forms import RegisterForm
 from .models import Event, Review
@@ -51,5 +51,5 @@ def submit_review():
         return redirect(url_for('main.event_details', event_id=event_id))
     else:
         flash("You need to be logged in to post a review.")
-            return redirect(url_for('auth.login'))
+        return redirect(url_for('auth.login'))
 
