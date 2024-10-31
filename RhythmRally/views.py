@@ -1,11 +1,13 @@
 from flask import Blueprint, render_template
 from . import db
 from .forms import RegisterForm
+from .models import Event
 
 # Create a Blueprint
 mainbp = Blueprint('main', __name__)
 
-# Define routes using the Blueprint
+# Define routes using the Blueprint\
+
 @mainbp.route("/")
 def home():
     return render_template("index.html")
@@ -16,7 +18,10 @@ def booking_history():
 
 @mainbp.route("/details")
 def event_details():
-    return render_template("eventdetails.html")
+    events = db.session.scalars(db.select(Event)).all() 
+    print(events[0])
+    
+    return render_template("eventdetails.html", event = events[0])
 
 @mainbp.route("/booking")
 def book_event():
@@ -26,3 +31,4 @@ def book_event():
 def user_register():
     form = RegisterForm() 
     return render_template("user.html", form=form, heading='Register')
+
