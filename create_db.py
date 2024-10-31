@@ -1,3 +1,4 @@
 from RhythmRally import db, create_app
 app = create_app()
-db.create_all()
+with app.app_context():
+    db.create_all()
