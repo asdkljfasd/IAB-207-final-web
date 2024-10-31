@@ -18,7 +18,7 @@ class User(db.Model, UserMixin):
     events = db.relationship('Event', backref='user', lazy='select')
 
     def __repr__(self):
-        return f"<User user_id={self.user_id}, firstname='{self.firstname}', surname='{self.surname}', username='{self.username}', email='{self.email}', user_status='{self.user_status}'>"
+        return f"<User user_id={self.user_id}, firstname='{self.first_name}', surname='{self.surname}', username='{self.username}', email='{self.email}', user_status='{self.user_status}'>"
     
     def set_password(self, password):
         self.password = generate_password_hash(password)
