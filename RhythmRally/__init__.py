@@ -25,12 +25,17 @@ def create_app():
     from .models import User
     @login_manager.user_loader
     def load_user(user_id):
-       return db.session.scalar(db.select(User).where(User.id==user_id))
+      return db.session.scalar(db.select(User).where(User.user_id==user_id))
     
     @app.errorhandler(404) 
     # inbuilt function which takes error as parameter 
     def not_found(e): 
       return render_template("404.html", error=e)
+    
+    @app.errorhandler(500) 
+    # inbuilt function which takes error as parameter 
+    def not_found(e): 
+      return render_template("500.html", error=e)
     
     from .views import mainbp
     app.register_blueprint(mainbp)
