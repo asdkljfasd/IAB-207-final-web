@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template
-from .models import User, Event, Ticket, TicketStatus, Purchase, Review
 from . import db
-
+from .forms import RegisterForm
 
 # Create a Blueprint
 mainbp = Blueprint('main', __name__)
@@ -23,17 +22,7 @@ def event_details():
 def book_event():
     return render_template("bookevent.html")
 
-@mainbp.route("/login")
-def login_form():
-    return render_template('login_form.html')
-
-@mainbp.route("/register")
-def register():
-    form = RegistraionForm()
-    if form_validate_on_submit():
-        return redirect(url_for('main.home'))
-    return render_template('register.html')
-
-#@app.route("/update")
-#def event_update():
-    #return render_template("eventupdate.html")
+@mainbp.route("/user")
+def user_register():
+    form = RegisterForm() 
+    return render_template("user.html", form=form, heading='Register')
