@@ -28,10 +28,10 @@ class EventForm(FlaskForm):
     artistname = StringField('Artist Name', validators= [InputRequired("Please Enter the Artist Name")])
     description = TextAreaField('Description', validators= [InputRequired("Please Enter a Description")])
     image = StringField('Event Image', validators= [InputRequired("Please Provide an Image")])
-    date = DateTimeField('Event Date', validators= [InputRequired("Please Enter the Date of the Event")])
-    start_time = DateTimeField('Start Time', validators= [InputRequired("Please Enter a Start Time")])
-    end_time = DateTimeField('End Time', validators= [InputRequired("Please Enter an End Time")])
-    ticket_price = StringField('Ticket Price', validators= [InputRequired("Please Enter a Ticket Price")])
+    date = DateField('Event Date', validators= [InputRequired("Please Enter the Date of the Event")])
+    start_time = TimeField('Start Time', validators= [InputRequired("Please Enter a Start Time")])
+    end_time = TimeField('End Time', validators= [InputRequired("Please Enter an End Time")])
+    ticket_price = FloatField('Ticket Price', validators= [InputRequired("Please Enter a Ticket Price")])
     
 class ReviewForm(FlaskForm):
     
