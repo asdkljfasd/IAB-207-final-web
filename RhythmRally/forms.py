@@ -23,15 +23,17 @@ class RegisterForm(FlaskForm):
     # Submit button
     submit = SubmitField("Register")
     
-"""class EventForm(FlaskForm):
-    eventname = StringField('Event Name', validators= [InputRequired("Please Enter the Event Name")])
-    artistname = StringField('Artist Name', validators= [InputRequired("Please Enter the Artist Name")])
+class EventForm(FlaskForm):
+    event_name = StringField('Event Name', validators= [InputRequired("Please Enter the Event Name")])
+    artist_name = StringField('Artist Name', validators= [InputRequired("Please Enter the Artist Name")])
     description = TextAreaField('Description', validators= [InputRequired("Please Enter a Description")])
     image = StringField('Event Image', validators= [InputRequired("Please Provide an Image")])
     date = DateField('Event Date', validators= [InputRequired("Please Enter the Date of the Event")])
     start_time = TimeField('Start Time', validators= [InputRequired("Please Enter a Start Time")])
     end_time = TimeField('End Time', validators= [InputRequired("Please Enter an End Time")])
     ticket_price = FloatField('Ticket Price', validators= [InputRequired("Please Enter a Ticket Price")])
+    submit = SubmitField('Create')
     
-class ReviewForm(FlaskForm):
-    """
+
+#class ReviewForm(FlaskForm):
+

@@ -1,13 +1,15 @@
 from . import db
-from datetime import date, time
+from datetime import date, time, datetime
 from flask_login import UserMixin
+from flask_bcrypt import generate_password_hash, check_password_hash
+from sqlalchemy import Enum
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users' 
     user_id = db.Column(db.Integer, primary_key=True)  
     first_name = db.Column(db.String(50), index=True, unique=True, nullable=False)
     surname = db.Column(db.String(50), index=True, unique=True, nullable=False)
-    emailid = db.Column(db.String(100), index=True, nullable=False)
+    email = db.Column(db.String(100), index=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
     contact_number = db.Column(db.String(15), nullable=False)  
     street_address = db.Column(db.String(100), nullable=False)
@@ -21,7 +23,11 @@ class User(db.Model, UserMixin):
     
     # String representation method
     def __repr__(self):
-        return f"User(user_id={self.user_id}, name={self.first_name} {self.surname})"
+        return f"User(user_id = {self.user_id}, name = {self.first_name} {self.surname})"
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
 
 class Event(db.Model):
     __tablename__ = 'events'
@@ -34,9 +40,10 @@ class Event(db.Model):
     event_start_time = db.Column(db.Time, nullable=False)
     event_end_time = db.Column(db.Time, nullable=False)
     event_ticket_price = db.Column(db.Float, nullable=False)
+    tickets_available = db.Column(db.Integer, nullable=False) 
     category = db.Column(db.String(30), nullable=False)
     description = db.Column(db.String(200), nullable=False)
-    #event_status = 
+    event_state = db.Column(Enum('Open','Inactive', 'Sold Out', 'Cancelled', name = 'event_state_enum'), nullable = False, default = 'Open')
 
     # Relationships
     tickets = db.relationship('Ticket', backref='event', lazy='select')
@@ -45,6 +52,21 @@ class Event(db.Model):
     def __repr__(self):
         return f"<Event event_id={self.event_id}, event_name='{self.event_name}', artist_name='{self.artist_name}', venue='{self.event_venue}', date={self.event_date}, category={self.category}>"
 
+    # function to update event state
+    def update_event_state(self):
+        current_datetime = datetime.now()
+        if self.event_state == 'Cancelled'
+            return
+        if datetime.combine(self.event_date, self.event_end_time) < current_datetime:
+            self.event_state = 'Inactive'
+        elif self.tickets_available == 0:
+            self.event_state = 'Sold Out'
+        else:
+            self.event_state = 'Open'
+            
+    def cancel_event(self):
+        self.event_state = 'Cancelled'
+    
 class Ticket(db.Model):
     __tablename__ = 'tickets'
     ticket_id = db.Column(db.Integer, primary_key=True)
@@ -57,7 +79,6 @@ class Ticket(db.Model):
 
     def __repr__(self):
         return f"<Ticket ticket_id={self.ticket_id}, event_id={self.event_id}, owner_id={self.owner_id}, price={self.price}>"
-
 
 
 class Purchase(db.Model):
