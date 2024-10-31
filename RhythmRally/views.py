@@ -33,6 +33,7 @@ def register():
     if form_validate_on_submit():
         return redirect(url_for('main.home'))
     return render_template('register.html')
+
 #@app.route("/update")
 #def event_update():
     #return render_template("eventupdate.html")
