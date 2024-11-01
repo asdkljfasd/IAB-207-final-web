@@ -19,6 +19,8 @@ def home():
 def booking_history():
     user_purchases = db.session.scalars(select(Purchase).where(Purchase.user_id == current_user.user_id)).all()
     return render_template("bookinghistory.html", purchases = user_purchases)
+
+
 @mainbp.route("/user")
 def user_register():
     form = RegisterForm() 

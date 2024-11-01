@@ -13,7 +13,6 @@ eventbp = Blueprint('event', __name__, url_prefix='/events')
 # Function for event creation
 @eventbp.route('/create_event', methods=['GET', 'POST'])
 @login_required
-
 def create_event():
     form = EventForm()  # Instantiate the form
     if form.validate_on_submit():
@@ -29,6 +28,7 @@ def create_event():
         return redirect(url_for('event.create_event'))
     return render_template('create_event.html', form=form)
 
+# function for obtaining image file path
 def check_upload_file(form):
     fp = form.image.data
     filename = fp.filename
@@ -39,8 +39,9 @@ def check_upload_file(form):
     return db_upload_path
 
 
-@eventbp.route('/details/<event_id>')
 
+@eventbp.route('/details/<event_id>')
+# show selected event details
 def event_details(event_id):
     event = db.session.scalar(db.select(Event).where(Event.event_id == event_id))
     reviews = db.session.scalars(db.select(Review).where(Review.event_id == event_id)).all()
@@ -48,9 +49,10 @@ def event_details(event_id):
     return render_template('eventdetails.html', event = event, reviews = reviews)
 
 
+
 @eventbp.route('<event_id>/review', methods=['GET','POST'])
 @login_required
-
+# function for submitting review
 def submit_review(event_id):
     form = ReviewForm(event_id) 
     event = db.session.scalar(db.select(Event).where(Event.event_id == event_id))
@@ -60,4 +62,5 @@ def submit_review(event_id):
         db.session.commit()
         flash('Review submitted successfully.','success' )
     return redirect(url_for('event.event_details', event_id=event_id))
+    
     

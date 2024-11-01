@@ -17,7 +17,7 @@ def create_app():
     # Configure and initialise DB
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///rhythm_rally.sqlite'
     # Configure image upload folder
-    UPLOAD_FOLDER = '/static/image'
+    UPLOAD_FOLDER = '/static/Image'
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER 
     db.init_app(app)
 

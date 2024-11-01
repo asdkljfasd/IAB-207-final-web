@@ -42,7 +42,7 @@ class Event(db.Model):
     event_end_time = db.Column(db.Time, nullable=False)
     event_ticket_price = db.Column(db.Float, nullable=False)
     tickets_available = db.Column(db.Integer, nullable=False) 
-    event_category = db.Column(Enum('Jazz','Pop', 'Rock', 'RnB','Country','HipHop' name = 'event_category_enum'), nullable = False)
+    event_category = db.Column(Enum('Jazz','Pop', 'Rock', 'RnB','Country','HipHop',name = 'event_category_enum'), nullable = False)
     event_description = db.Column(db.String(200), nullable=False)
     event_state = db.Column(Enum('Open','Inactive', 'Sold Out', 'Cancelled', name = 'event_state_enum'), nullable = False, default = 'Open')
 
@@ -56,7 +56,7 @@ class Event(db.Model):
     # function to update event state
     def update_event_state(self):
         current_datetime = datetime.now()
-        if self.event_state == 'Cancelled'
+        if self.event_state == 'Cancelled':
             return
         if datetime.combine(self.event_date, self.event_end_time) < current_datetime:
             self.event_state = 'Inactive'
