@@ -40,8 +40,15 @@ class EventForm(FlaskForm):
     
 
 class ReviewForm(FlaskForm):
-    rating = SelectField('Rating (1-5)',choices=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')],
-            validators=[InputRequired(message='Rate your experience!')])
-    comment = TextAreaField('Comment', render_kw={'placeholder': 'What do you think about this event?'})
+    review_rating = SelectField(
+        'Rating (1-5)',
+        choices=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')],
+        validators=[InputRequired(message='Rate your experience!')]
+    )
+    review_comment = TextAreaField(
+        'Comment',
+        render_kw={'placeholder': 'What do you think about this event?'}
+    )
     submit = SubmitField('Submit')
+
 

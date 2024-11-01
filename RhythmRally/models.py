@@ -39,17 +39,16 @@ class Event(db.Model):
     event_image = db.Column(db.String(400))
     event_venue = db.Column(db.String(50), nullable=False)
     event_date = db.Column(db.Date, nullable=False)
-    event_start_time = db.Column(db.Time, nullable=False)
-    event_end_time = db.Column(db.Time, nullable=False)
+    event_start_time = db.Column(db.String(6), nullable=False)
+    event_end_time = db.Column(db.String(6), nullable=False)
     event_ticket_price = db.Column(db.Float, nullable=False)
     tickets_available = db.Column(db.Integer, nullable=False) 
-    event_category = db.Column(Enum('Jazz','Pop', 'Rock', 'RnB','Country','HipHop',name = 'event_category_enum'), nullable = False)
+    event_category = db.Column(Enum('Jazz','Pop', 'Rock', 'RnB','Country','HipHop', name='event_category_enum'), nullable=False)
     event_description = db.Column(db.String(200), nullable=False)
-    event_state = db.Column(Enum('Open','Inactive', 'Sold Out', 'Cancelled', name = 'event_state_enum'), nullable = False, default = 'Open')
-
+    event_state = db.Column(Enum('Open','Inactive', 'Sold Out', 'Cancelled', name='event_state_enum'), nullable=False, default='Open')
     # Relationships
     tickets = db.relationship('Ticket', backref='ticket', lazy='select')
-    reviews = db.relationship('Review', backref='review', lazy='select')
+    reviews = db.relationship('Review', backref='event', lazy='dynamic')
 
     def __repr__(self):
         return f"<Event event_id={self.event_id}, event_name='{self.event_name}', artist_name='{self.artist_name}', venue='{self.event_venue}', date={self.event_date}, category={self.category}>"
@@ -57,17 +56,21 @@ class Event(db.Model):
     # function to update event state
     def update_event_state(self):
         current_datetime = datetime.now()
+            start_time_obj = datetime.strptime(self.event_start_time, '%H:%M:%S').time()
+            end_time_obj = datetime.strptime(self.event_end_time, '%H:%M:%S').time()
+
+        # Combine event_date with event_end_time to get a datetime object
+        event_end_datetime = datetime.combine(self.event_date, end_time_obj)
+
+        # Compare event end datetime with current datetime
         if self.event_state == 'Cancelled':
             return
-        if datetime.combine(self.event_date, self.event_end_time) < current_datetime:
+        if event_end_datetime < current_datetime:
             self.event_state = 'Inactive'
         elif self.tickets_available == 0:
             self.event_state = 'Sold Out'
         else:
             self.event_state = 'Open'
-            
-    def cancel_event(self):
-        self.event_state = 'Cancelled'
     
 class Ticket(db.Model):
     __tablename__ = 'tickets'
@@ -106,6 +109,7 @@ class Review(db.Model):
     
     # Relationships
     user = db.relationship('User', backref='user_reviews', lazy='select')
+
 
     def __repr__(self):
         return f"<Review comment_id={self.comment_id}, user_id={self.user_id}, event_id={self.event_id}, comment='{self.comment}', posted_datetime={self.posted_datetime}, rating={self.rating}>"

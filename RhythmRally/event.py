@@ -25,15 +25,16 @@ def create_event():
     if form.validate_on_submit():
         try:
             db_file_path = check_upload_file(form)
-            
+            start_time_str = form.start_time.data.strftime('%H:%M:%S')
+            end_time_str = form.end_time.data.strftime('%H:%M:%S')
             # Create a new Event instance with form data
             event = Event(
                 event_name=form.event_name.data,
                 artist_name=form.artist_name.data,
                 event_venue=form.event_venue.data,
                 event_date=form.date.data,
-                event_start_time = form.start_time.data,
-                event_end_time = form.end_time.data,
+                event_start_time = start_time_str,
+                event_end_time = end_time_str,
                 event_ticket_price=form.ticket_price.data,
                 tickets_available=form.number_of_tickets.data,
                 event_description=form.description.data,
@@ -81,41 +82,52 @@ def check_upload_file(form):
 def uploaded_file(filename):
     return send_from_directory(current_app.config['UPLOAD_FOLDER'], filename)
 
-@eventbp.route('/details/<event_id>')
-# Show selected event details
+@eventbp.route('/details/<int:event_id>')
 def event_details(event_id):
-    event = db.session.scalar(db.select(Event).where(Event.event_id == event_id))
-    
-    # Update the event state if necessary
-    if event:
-        event.update_event_state()
-        db.session.commit()
-    else:
-        flash("Event not found", 'danger')
+    try:
+        # Query the event by event_id
+        event = db.session.scalar(db.select(Event).where(Event.event_id == event_id))
+        if event is None:
+            flash("Event not found", "danger")
+            return redirect(url_for('event.list_events'))
+        
+        # Fetch reviews for the event
+        reviews = db.session.scalars(db.select(Review).where(Review.event_id == event_id)).all()
+        form = ReviewForm()
+
+        return render_template('eventdetails.html', event=event, reviews=reviews, form=form)
+
+    except Exception as e:
+        # Handle any unexpected errors
+        flash(f"An error occurred: {str(e)}", "danger")
         return redirect(url_for('event.list_events'))
-    
-    # Fetch reviews for the event
-    reviews = db.session.scalars(db.select(Review).where(Review.event_id == event_id)).all()
-    
-    # Initialize an empty review form
-    form = ReviewForm()
-
-    return render_template('eventdetails.html', event=event, reviews=reviews, form=form)
 
 
 
 
-@eventbp.route('<event_id>/review', methods=['GET','POST'])
+
+@eventbp.route('<event_id>/review', methods=['GET', 'POST'])
 @login_required
-# function for submitting review
 def submit_review(event_id):
-    form = ReviewForm(event_id) 
+    form = ReviewForm() 
     event = db.session.scalar(db.select(Event).where(Event.event_id == event_id))
+
     if form.validate_on_submit():
-        review = Review(user_id = current_user.user_id, event_id = event_id, comment = form.comment.data, posted_datetime = datetime.now(), rating = form.rating.data)
-        db.session.add(review)
-        db.session.commit()
-        flash('Review submitted successfully.','success' )
+        try:
+            review = Review(
+                user_id=current_user.user_id,
+                event_id=event_id,
+                comment=form.review_comment.data,
+                posted_datetime=datetime.now(),
+                rating=form.review_rating.data
+            )
+            db.session.add(review)
+            db.session.commit()
+            flash('Review submitted successfully.', 'success')
+        except Exception as e:
+            db.session.rollback()  # Rollback in case of error
+            flash(f'An error occurred while saving the review: {e}', 'danger')
+    else:
+        flash('Form validation failed. Please check the inputs.', 'warning')
+
     return redirect(url_for('event.event_details', event_id=event_id))
-    
-    

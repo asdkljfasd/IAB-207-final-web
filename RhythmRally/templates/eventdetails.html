@@ -6,13 +6,13 @@
     <div class="card mb-4">
       <div class="card-body">
         <h1 class="card-title">{{ event.event_name }}</h1>
-        <img src="{{ url_for('static', filename=event.event_image) }}" alt="{{ event.event_name }}" class="img-fluid mb-4 w-50">
+        <img src="{{ url_for('static', filename=event.event_image) }}" alt="{{ event.event_name }}" class="img-fluid mb-4">
         
         <p class="card-text"><strong>Artist:</strong> {{ event.artist_name }}</p>
         <p class="card-text"><strong>Venue:</strong> {{ event.event_venue }}</p>
         <p class="card-text"><strong>Date:</strong> {{ event.event_date.strftime('%Y-%m-%d') }}</p>
-        <p class="card-text"><strong>Start Time:</strong> {{ event.event_start_time }}</p>
-        <p class="card-text"><strong>End Time:</strong> {{ event.event_end_time }}</p>
+        <p class="card-text"><strong>Start Time:</strong> {{ event.event_start_time[:5] }}</p>
+        <p class="card-text"><strong>End Time:</strong> {{ event.event_end_time[:5] }}</p>
       </div>
     </div>
 
@@ -38,7 +38,18 @@
     <div class="review-form-section">
       <h4>Leave a Review</h4>
       <form method="POST" action="{{ url_for('event.submit_review', event_id=event.event_id) }}">
-        {{ render_form(form) }}
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+          {{ form.review_rating.label(class="form-label") }}
+          {{ form.review_rating(class="form-select") }}
+        </div>
+        <div class="mb-3">
+          {{ form.review_comment.label(class="form-label") }}
+          {{ form.review_comment(class="form-control") }}
+        </div>
+        <div>
+          {{ form.submit(class="btn btn-primary mt-3") }}
+        </div>
       </form>
     </div>
   </div>
