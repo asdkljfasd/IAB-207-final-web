@@ -1,3 +1,4 @@
 
-instance/rhythm_rally.sqlite
+venv
 .DS_Store
+__pycache__
