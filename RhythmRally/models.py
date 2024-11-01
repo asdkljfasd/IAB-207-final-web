@@ -56,8 +56,8 @@ class Event(db.Model):
     # function to update event state
     def update_event_state(self):
         current_datetime = datetime.now()
-            start_time_obj = datetime.strptime(self.event_start_time, '%H:%M:%S').time()
-            end_time_obj = datetime.strptime(self.event_end_time, '%H:%M:%S').time()
+        start_time_obj = datetime.strptime(self.event_start_time, '%H:%M:%S').time()
+        end_time_obj = datetime.strptime(self.event_end_time, '%H:%M:%S').time()
 
         # Combine event_date with event_end_time to get a datetime object
         event_end_datetime = datetime.combine(self.event_date, end_time_obj)
