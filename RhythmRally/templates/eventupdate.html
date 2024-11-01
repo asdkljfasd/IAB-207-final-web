@@ -1,1 +1,53 @@
+{% extends "base.html" %}
+{% from 'bootstrap5/form.html' import render_form %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Update Event</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        
+        <div class="mb-3">
+            {{ render_form(form.event_name, label="Event Name") }}
+        </div>
+        <div class="mb-3">
+            {{ render_form(form.artist_name, label="Artist Name") }}
+        </div>
+        <div class="mb-3">
+            {{ render_form(form.event_venue, label="Event Venue") }}
+        </div>
+        <div class="mb-3">
+            {{ render_form(form.description, label="Description") }}
+        </div>
+        <div class="mb-3">
+            {{ render_form(form.image, label="Event Image") }}
+            {% if event.image %}
+                <img src="{{ url_for('static', filename=event.image) }}" alt="Event Image" style="width: 150px; margin-top: 10px;">
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            {{ render_form(form.date, label="Event Date") }}
+        </div>
+        <div class="mb-3">
+            {{ render_form(form.start_time, label="Start Time") }}
+        </div>
+        <div class="mb-3">
+            {{ render_form(form.end_time, label="End Time") }}
+        </div>
+        <div class="mb-3">
+            {{ render_form(form.ticket_price, label="Ticket Price") }}
+        </div>
+        <div class="mb-3">
+            {{ render_form(form.number_of_tickets, label="Number Of Tickets") }}
+        </div>
+        <div class="mb-3">
+            {{ render_form(form.category, label="Category") }}
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Update Event</button>
+    </form>
+</div>
+{% endblock %}
+
+
 
