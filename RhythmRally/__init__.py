@@ -7,10 +7,11 @@ from flask_bcrypt import Bcrypt
 
 db = SQLAlchemy()
 login_manager = LoginManager()
+bcrypt = Bcrypt()
 
 def create_app():
     app = Flask(__name__)
-    bcrypt = Bcrypt(app)
+    bcrypt.init_app(app)
     Bootstrap5(app)
     app.secret_key = 'testing123'
     # Initialize SQLAlchemy with the Flask app

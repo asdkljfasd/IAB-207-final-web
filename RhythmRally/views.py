@@ -26,10 +26,7 @@ def booking_history():
     return render_template("bookinghistory.html", purchases = user_purchases)
 
 
-@mainbp.route("/user")
-def user_register():
-    form = RegisterForm() 
-    return render_template("user.html", form=form, heading='Register')
+
 
 
 

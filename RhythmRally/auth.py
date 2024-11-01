@@ -9,7 +9,7 @@ from flask_bcrypt import Bcrypt
 
 # create a blueprint
 authbp = Blueprint('auth', __name__ )
-
+@authbp.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
@@ -36,7 +36,8 @@ def register():
     return render_template('user.html', form=form, heading='Register')
 
     
-bcrypt = Bcrypt()  # This should ideally be done globally, e.g., in app factory function.
+
+
 
 @authbp.route('/login', methods=['GET', 'POST'])
 def login():
@@ -49,15 +50,15 @@ def login():
         # Query the user from the database by email
         user = db.session.scalar(db.select(User).where(User.email == user_email))
 
-        # If there is no user with that email
+        # If the user doesn't exist or the password is incorrect
         if user is None:
             flash('Incorrect email. Please try again.', 'danger')
-        # Check the password using the hash function
-        elif not check_password_hash(user.password_hash, user_password):
+        elif not bcrypt.check_password_hash(user.password_hash, user_password):
             flash('Incorrect password. Please try again.', 'danger')
         else:
             # Log the user in using Flask-Login
             login_user(user)
+            flash('Logged in successfully!', 'success')
             return redirect(url_for('main.home'))
 
     return render_template('user.html', form=form, heading='Login')
