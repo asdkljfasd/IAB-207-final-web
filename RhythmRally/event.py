@@ -1,5 +1,5 @@
 import os
-from flask import Blueprint, request, redirect, url_for, flash, render_template
+from flask import Blueprint, request, redirect, url_for, flash, render_template, current_app
 from . import db
 from .models import Event, Review
 from flask_login import current_user, login_required
@@ -20,27 +20,64 @@ def list_events():
 @login_required
 def create_event():
     form = EventForm()  # Instantiate the form
+    
+    # Make sure form data is valid
     if form.validate_on_submit():
-        db_file_path = check_upload_file(form)
-        event = Event(event_name = form.event_name.data,artist_name = form.artist_name.data, 
-                event_venue = form.event_venue.data, event_date = form.date.data, 
-                event_start_time = form.start_time.data, event_end_time = form.end_time.data, 
-                event_ticket_price = form.ticket_price.data, event_ticket_available = form.number_of_tickets.data, 
-                event_description = form.description.data, event_category = form.category.data, event_creator_id = current_user.user_id, event_image = db_file_path)
-        db.session.add(event)
-        db.session.commit()
-        flash('Successfully created new event', 'success')
-        return redirect(url_for('event.create_event'))
+        try:
+            db_file_path = check_upload_file(form)
+            
+            start_time = form.start_time.data.replace(microsecond=0)
+            end_time = form.end_time.data.replace(microsecond=0)
+            
+            # Create a new Event instance with form data
+            event = Event(
+                event_name=form.event_name.data,
+                artist_name=form.artist_name.data,
+                event_venue=form.event_venue.data,
+                event_date=form.date.data,
+                event_start_time=start_time,
+                event_end_time=end_time,
+                event_ticket_price=form.ticket_price.data,
+                tickets_available=form.number_of_tickets.data,
+                event_description=form.description.data,
+                event_category=form.category.data,
+                event_creator_id=current_user.user_id,
+                event_image=db_file_path())
+            
+            
+            # Add event to the session and commit
+            db.session.add(event)
+            db.session.commit()
+            
+            flash('Successfully created new event', 'success')
+            return redirect(url_for('event.list_events'))  # Redirect to an event list or details page
+        except Exception as e:
+            # If an error occurs, flash the error message
+            flash(f"An error occurred while creating the event: {str(e)}", 'danger')
+
     return render_template('create_event.html', form=form)
 
-# function for obtaining image file path
+
 def check_upload_file(form):
     fp = form.image.data
-    filename = fp.filename
-    BASE_PATH = os.path.dirname(__file__)
-    upload_path = os.path.join(BASE_PATH, 'static/image', secure_filename(filename))
-    db_upload_path = '/static/image/' + secure_filename(filename)
+    filename = secure_filename(fp.filename)
+    
+    # Get the upload path from the app's configuration
+    BASE_PATH = current_app.config.get('UPLOAD_FOLDER', os.path.join(os.path.dirname(__file__), 'uploads'))
+    
+    # Create the full upload path
+    upload_path = os.path.join(BASE_PATH, filename)
+    
+    # Make sure the directory exists
+    if not os.path.exists(BASE_PATH):
+        os.makedirs(BASE_PATH)
+    
+    # Save the file
     fp.save(upload_path)
+    
+    # Return the path to be saved in the database
+    # This ensures the returned path is relative and accessible for use in templates
+    db_upload_path = f'uploads/{filename}'
     return db_upload_path
 
 

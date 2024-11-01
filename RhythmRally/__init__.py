@@ -19,8 +19,7 @@ def create_app():
     # Configure and initialise DB
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///rhythm_rally.sqlite'
     # Configure image upload folder
-    UPLOAD_FOLDER = '/static/Image'
-    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER 
+    app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(__file__), 'uploads')
     db.init_app(app)
 
     login_manager.login_view = 'auth.login'  # Redirect to the login page if not logged in

@@ -35,7 +35,7 @@ class EventForm(FlaskForm):
     end_time = TimeField('End Time', validators= [InputRequired('Please enter the planned end time of your event.')])
     ticket_price = FloatField('Ticket Price', validators= [InputRequired('Please enter the price per ticket.')])
     number_of_tickets = IntegerField('Number Of Tickets', validators= [InputRequired('Please enter the number of tickets available for sale.')])
-    category = SelectField('Category',choices=[('Jazz', 'Jazz'), ('Pop', 'Pop'), ('Rock', 'Rock'), ('RnB', 'RnB'), ('Country', 'Country'), ('HipHop', 'HipHop'),('Others','Others')],validators=[InputRequired('Please select the category closest to your event.')])
+    category = SelectField('Category',choices=[('Jazz', 'Jazz'), ('Pop', 'Pop'), ('Rock', 'Rock'), ('RnB', 'RnB'), ('Country', 'Country'), ('HipHop', 'HipHop'),('Others','Others')],validators=[InputRequired()])
     submit = SubmitField('Create')
     
 

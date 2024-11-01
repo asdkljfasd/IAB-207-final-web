@@ -15,7 +15,6 @@ class User(db.Model, UserMixin):
     street_address = db.Column(db.String(100), nullable=False)
     
         # Relationships
-    reviews = db.relationship('Review', backref='reviewer', lazy='select')
     purchases = db.relationship('Purchase', backref='customer', lazy='select')
     events = db.relationship('Event', backref='creator', lazy='select')
     tickets = db.relationship('Ticket', backref='buyer', lazy='select')
