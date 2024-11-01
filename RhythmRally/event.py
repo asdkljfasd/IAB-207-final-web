@@ -9,7 +9,10 @@ from werkzeug.utils import secure_filename
 
 eventbp = Blueprint('event', __name__, url_prefix='/events')
 
-
+@eventbp.route("/event_list")
+def list_events():
+    events = db.session.scalars(select(Event)).all()
+    return render_template("events.html", events=events)
 
 # Function for event creation
 @eventbp.route('/create_event', methods=['GET', 'POST'])
