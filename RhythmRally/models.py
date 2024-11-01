@@ -28,6 +28,8 @@ class User(db.Model, UserMixin):
         self.password = generate_password_hash(password)
     def check_password(self, password):
         return check_password_hash(self.password, password)
+    def get_id(self):
+        return int(self.user_id)
 
 class Event(db.Model):
     __tablename__ = 'events'

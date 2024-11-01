@@ -1,11 +1,11 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
 from .forms import LoginForm, RegisterForm
-from flask_login import current_user, login_required, logout_user
+from flask_login import current_user, login_required, logout_user, login_user
 from flask_bcrypt import generate_password_hash, check_password_hash
 from .models import User
-from . import db
+from . import db, bcrypt
 from sqlalchemy import select
-from flask_bcrypt import Bcrypt
+
 
 # create a blueprint
 authbp = Blueprint('auth', __name__ )
