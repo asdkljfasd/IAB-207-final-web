@@ -3,7 +3,7 @@ from .forms import LoginForm, RegisterForm
 from flask_login import current_user, login_required, logout_user, login_user
 from flask_bcrypt import generate_password_hash, check_password_hash
 from .models import User
-from . import db, bcrypt
+from . import db, Bcrypt
 from sqlalchemy import select
 
 
