@@ -4,6 +4,7 @@ from flask_login import login_user, login_required, logout_user
 from flask_bcrypt import generate_password_hash, check_password_hash
 from .models import User
 from . import db
+from sqlalchemy import select
 
 # create a blueprint
 authbp = Blueprint('auth', __name__ )

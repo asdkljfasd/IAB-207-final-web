@@ -4,6 +4,7 @@ from . import db
 from .models import Event, Review
 from flask_login import current_user, login_required
 from datetime import datetime
+from sqlalchemy import select
 from werkzeug.utils import secure_filename
 
 eventbp = Blueprint('event', __name__, url_prefix='/events')
@@ -44,6 +45,8 @@ def check_upload_file(form):
 # show selected event details
 def event_details(event_id):
     event = db.session.scalar(db.select(Event).where(Event.event_id == event_id))
+    event.update_event_state()
+    db.session.commit()
     reviews = db.session.scalars(db.select(Review).where(Review.event_id == event_id)).all()
     form = ReviewForm()
     return render_template('eventdetails.html', event = event, reviews = reviews)

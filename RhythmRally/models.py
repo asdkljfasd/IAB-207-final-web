@@ -15,10 +15,10 @@ class User(db.Model, UserMixin):
     street_address = db.Column(db.String(100), nullable=False)
     
         # Relationships
-    reviews = db.relationship('Review', backref='user', lazy='select')
-    purchases = db.relationship('Purchase', backref='user', lazy='select')
-    events = db.relationship('Event', backref='user', lazy='select')
-    tickets = db.relationship('Ticket', backref='user', lazy='select')
+    reviews = db.relationship('Review', backref='reviewer', lazy='select')
+    purchases = db.relationship('Purchase', backref='customer', lazy='select')
+    events = db.relationship('Event', backref='creator', lazy='select')
+    tickets = db.relationship('Ticket', backref='buyer', lazy='select')
 
     
     # String representation method
@@ -47,8 +47,8 @@ class Event(db.Model):
     event_state = db.Column(Enum('Open','Inactive', 'Sold Out', 'Cancelled', name = 'event_state_enum'), nullable = False, default = 'Open')
 
     # Relationships
-    tickets = db.relationship('Ticket', backref='event', lazy='select')
-    reviews = db.relationship('Review', backref='event', lazy='select')
+    tickets = db.relationship('Ticket', backref='ticket', lazy='select')
+    reviews = db.relationship('Review', backref='review', lazy='select')
 
     def __repr__(self):
         return f"<Event event_id={self.event_id}, event_name='{self.event_name}', artist_name='{self.artist_name}', venue='{self.event_venue}', date={self.event_date}, category={self.category}>"
@@ -76,7 +76,7 @@ class Ticket(db.Model):
     price = db.Column(db.Float, nullable=False)  
 
     # Relationships
-    purchases = db.relationship('Purchase', backref='ticket', lazy='select')
+    purchases = db.relationship('Purchase', backref='purchased_ticket', lazy='select')
 
     def __repr__(self):
         return f"<Ticket ticket_id={self.ticket_id}, event_id={self.event_id}, owner_id={self.owner_id}, price={self.price}>"

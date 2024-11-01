@@ -4,6 +4,7 @@ from .forms import RegisterForm
 from .models import Event, Review, Purchase
 from flask_login import current_user, login_required
 from datetime import datetime
+from sqlalchemy import select
 
 # Create a Blueprint
 mainbp = Blueprint('main', __name__)
@@ -12,7 +13,11 @@ mainbp = Blueprint('main', __name__)
 
 @mainbp.route("/")
 def home():
-    return render_template("index.html")
+    events = db.session.scalars(select(Event)).all()
+    for event in events:
+        event.update_event_state()
+    db.session.commit()
+    return render_template("index.html", events = events)
 
 @mainbp.route("/history")
 @login_required
