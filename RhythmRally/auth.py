@@ -10,33 +10,29 @@ from flask_bcrypt import Bcrypt
 # create a blueprint
 authbp = Blueprint('auth', __name__ )
 
-@authbp.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-        new_user = User(first_name = form.first_name.data,
-                        surname = form.surname.data,email = form.email.data,
-                        password_hash = form.password.data, 
-                        contact_number = form.contact_number.data, street_address = form.street_address.data ) 
-        
+        # Hash the password entered by the user
+        hashed_password = generate_password_hash(form.password.data).decode('utf-8')
 
-        # Check if a user exists
-        existing_user = db.session.scalar(db.select(User).where(User.email == new_user.email))
-        if existing_user:  # This returns true when user is not None
-            flash('Email already exists, please try another')
-            return redirect(url_for('auth.register'))
+        # Create a new user instance with the hashed password
+        new_user = User(
+            first_name=form.first_name.data,
+            surname=form.surname.data,
+            email=form.email.data,
+            password_hash=hashed_password,  # Store the hashed password
+            contact_number=form.contact_number.data,
+            street_address=form.street_address.data
+        )
 
-        # Hash the password
-        pwd_hash = generate_password_hash(new_user.password_hash)
-
-        # Create a new User model object
+        # Add the user to the session and commit it to the database
         db.session.add(new_user)
         db.session.commit()
 
-        # Redirect to the main index page
-        return redirect(url_for('main.home'))
+        flash('Registration successful. Please log in.', 'success')
+        return redirect(url_for('auth.login'))
 
-    # Called if the HTTP request is GET
     return render_template('user.html', form=form, heading='Register')
 
     
