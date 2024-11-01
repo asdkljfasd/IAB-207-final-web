@@ -7,9 +7,9 @@ from sqlalchemy import Enum
 class User(db.Model, UserMixin):
     __tablename__ = 'users' 
     user_id = db.Column(db.Integer, primary_key=True)  
-    first_name = db.Column(db.String(50), index=True, unique=True, nullable=False)
-    surname = db.Column(db.String(50), index=True, unique=True, nullable=False)
-    email = db.Column(db.String(100), index=True, nullable=False)
+    first_name = db.Column(db.String(50), index=True, nullable=False)
+    surname = db.Column(db.String(50), index=True, nullable=False)
+    email = db.Column(db.String(100), index=True,unique = True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
     contact_number = db.Column(db.String(15), nullable=False)  
     street_address = db.Column(db.String(100), nullable=False)

@@ -3,13 +3,14 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap5
 import os
 from flask_login import LoginManager
+from flask_bcrypt import Bcrypt
 
 db = SQLAlchemy()
 login_manager = LoginManager()
 
 def create_app():
     app = Flask(__name__)
-
+    bcrypt = Bcrypt(app)
     Bootstrap5(app)
     app.secret_key = 'testing123'
     # Initialize SQLAlchemy with the Flask app

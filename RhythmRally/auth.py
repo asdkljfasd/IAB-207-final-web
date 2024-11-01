@@ -1,36 +1,35 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
 from .forms import LoginForm, RegisterForm
-from flask_login import login_user, login_required, logout_user
+from flask_login import current_user, login_required, logout_user
 from flask_bcrypt import generate_password_hash, check_password_hash
 from .models import User
 from . import db
 from sqlalchemy import select
+from flask_bcrypt import Bcrypt
 
 # create a blueprint
 authbp = Blueprint('auth', __name__ )
 
 @authbp.route('/register', methods=['GET', 'POST'])
 def register():
-    register = RegisterForm()
-    if register.validate_on_submit() == True:
-        # Get username, password, and email from the form
-        uname = register.username.data
-        pwd = register.password.data
-        email = register.email.data
-        contact_number = register.contact_number.data
-        street_address = register.street_address.data  
+    form = RegisterForm()
+    if form.validate_on_submit():
+        new_user = User(first_name = form.first_name.data,
+                        surname = form.surname.data,email = form.email.data,
+                        password_hash = form.password.data, 
+                        contact_number = form.contact_number.data, street_address = form.street_address.data ) 
+        
 
         # Check if a user exists
-        user = db.session.scalar(db.select(User).where(User.name == uname))
-        if user:  # This returns true when user is not None
-            flash('Username already exists, please try another')
+        existing_user = db.session.scalar(db.select(User).where(User.email == new_user.email))
+        if existing_user:  # This returns true when user is not None
+            flash('Email already exists, please try another')
             return redirect(url_for('auth.register'))
 
         # Hash the password
-        pwd_hash = generate_password_hash(pwd)
+        pwd_hash = generate_password_hash(new_user.password_hash)
 
         # Create a new User model object
-        new_user = User(name=uname, password_hash=pwd_hash, emailid=email, contact_number=contact_number, street_address=street_address)
         db.session.add(new_user)
         db.session.commit()
 
@@ -38,31 +37,35 @@ def register():
         return redirect(url_for('main.home'))
 
     # Called if the HTTP request is GET
-    return render_template('user.html', form=register, heading='Register')
+    return render_template('user.html', form=form, heading='Register')
 
     
+bcrypt = Bcrypt()  # This should ideally be done globally, e.g., in app factory function.
+
 @authbp.route('/login', methods=['GET', 'POST'])
 def login():
-    login_form = LoginForm()
-    error = None
-    if(login_form.validate_on_submit()==True):
-        #get the username and password from the database
-        user_name = login_form.user_name.data
-        password = login_form.password.data
-        user = db.session.scalar(db.select(User).where(User.name==user_name))
-        #if there is no user with that name
+    form = LoginForm()
+    if form.validate_on_submit():
+        # Get the email and password from the form
+        user_email = form.email.data
+        user_password = form.password.data
+
+        # Query the user from the database by email
+        user = db.session.scalar(db.select(User).where(User.email == user_email))
+
+        # If there is no user with that email
         if user is None:
-            error = 'Incorrect username'#could be a security risk to give this much info away
-        #check the password - notice password hash function
-        elif not check_password_hash(user.password_hash, password): # takes the hash and password
-            error = 'Incorrect password'
-        if error is None:
-            #all good, set the login_user of flask_login to manage the user
+            flash('Incorrect email. Please try again.', 'danger')
+        # Check the password using the hash function
+        elif not check_password_hash(user.password_hash, user_password):
+            flash('Incorrect password. Please try again.', 'danger')
+        else:
+            # Log the user in using Flask-Login
             login_user(user)
             return redirect(url_for('main.home'))
-        else:
-            flash(error)
-    return render_template('user.html', form=login_form, heading='Login')
+
+    return render_template('user.html', form=form, heading='Login')
+
 
 @authbp.route('/logout')
 @login_required

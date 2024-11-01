@@ -5,13 +5,14 @@ from flask_wtf.file import FileRequired, FileField, FileAllowed
 
 #User login
 class LoginForm(FlaskForm):
-    user_name = StringField('User Name', validators=[InputRequired('Enter user name')])
+    email = StringField('Email', validators=[InputRequired('Enter user email.')])
     password = PasswordField('Password', validators=[InputRequired('Enter user password')])
     submit = SubmitField('Login')
 
 class RegisterForm(FlaskForm):
-    username = StringField('Username', validators=[InputRequired()])
-    email = StringField('Email Address', validators=[Email('Please enter a valid email.')])
+    first_name = StringField('First name', validators=[InputRequired('Please enter your first name.')])
+    surname = StringField('Surname', validators=[InputRequired('Please enter your surname.')])
+    email = StringField('Email Address', validators=[InputRequired('Please enter a valid email.')])
     password = PasswordField('Password', validators=[
         InputRequired(),
         EqualTo('confirm', message='Passwords should match')
