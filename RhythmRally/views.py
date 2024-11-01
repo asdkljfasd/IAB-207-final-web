@@ -1,10 +1,11 @@
-from flask import Blueprint, request, redirect, url_for, flash, render_template
+from flask import Blueprint, request, redirect, url_for, flash, render_template, send_from_directory
 from . import db
 from .forms import RegisterForm
 from .models import Event, Review, Purchase
 from flask_login import current_user, login_required
 from datetime import datetime
 from sqlalchemy import select
+
 
 # Create a Blueprint
 mainbp = Blueprint('main', __name__)
@@ -24,7 +25,6 @@ def home():
 def booking_history():
     user_purchases = db.session.scalars(select(Purchase).where(Purchase.user_id == current_user.user_id)).all()
     return render_template("bookinghistory.html", purchases = user_purchases)
-
 
 
 

@@ -59,8 +59,8 @@ def check_upload_file(form):
     fp = form.image.data
     filename = secure_filename(fp.filename)
     
-    # Get the upload path from the app's configuration
-    BASE_PATH = current_app.config.get('UPLOAD_FOLDER', os.path.join(os.path.dirname(__file__), 'uploads'))
+    # Use the static/uploads directory for storing uploaded files
+    BASE_PATH = os.path.join(current_app.static_folder, 'uploads')
     
     # Create the full upload path
     upload_path = os.path.join(BASE_PATH, filename)
@@ -77,17 +77,31 @@ def check_upload_file(form):
     db_upload_path = f'uploads/{filename}'
     return db_upload_path
 
-
+@eventbp.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(current_app.config['UPLOAD_FOLDER'], filename)
 
 @eventbp.route('/details/<event_id>')
-# show selected event details
+# Show selected event details
 def event_details(event_id):
     event = db.session.scalar(db.select(Event).where(Event.event_id == event_id))
-    event.update_event_state()
-    db.session.commit()
+    
+    # Update the event state if necessary
+    if event:
+        event.update_event_state()
+        db.session.commit()
+    else:
+        flash("Event not found", 'danger')
+        return redirect(url_for('event.list_events'))
+    
+    # Fetch reviews for the event
     reviews = db.session.scalars(db.select(Review).where(Review.event_id == event_id)).all()
+    
+    # Initialize an empty review form
     form = ReviewForm()
-    return render_template('eventdetails.html', event = event, reviews = reviews)
+
+    return render_template('eventdetails.html', event=event, reviews=reviews, form=form)
+
 
 
 

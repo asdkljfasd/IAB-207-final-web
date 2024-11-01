@@ -1,256 +1,45 @@
 {% extends "base.html" %}
-
-{% set body_class = "body" %}
-
 {% from 'bootstrap5/form.html' import render_form %}
-
 {% block content %}
-    <!-- TICKET DETAILS -->
-    <section class="container sproduct my-5 py-5">
-        <div class="row mt-5">
-            <div class="col-lg-5 col-md-12 col-12">
-                <img class="img-fluid w-100" src="static/Images/albumcover2.jpg" alt="keshi">
-            </div>
-            <div class="col-lg-6 col-md-12 col-12">
-                <h2>{{event.event_id}}</h2>
-                <h3 class="py-4">{{event.artist_name}}</h3>
-                <h4>${{event.price}}</h4>
-                <select class="my-3">
-                    <option>Select Ticket</option>
-                    <option>VIP Ticket</option>
-                    <option>Standing Ticket</option>
-                    <option>Seated Ticket</option>
-                </select>
-                <input type="number" value="1">
-                <a href="{{ url_for('main.booking_history') }}"
-                    style="background-color: #1d1d1d; font-size: 0.8rem; font-weight: 700; outline: none; border: none; color: aliceblue; padding: 13px 30px; cursor: pointer; text-transform: uppercase; transition: 0.3s ease;"
-                    class="btn btn-primary">Buy Ticket</a>
-                <h4 class="mt-4 mb-4">Ticket Details</h4>
-                <span>{{event.description}}</span>
-            </div>
-    </section>
+  <div class="container mt-5">
+    <!-- Event Details Section -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <h1 class="card-title">{{ event.event_name }}</h1>
+        <img src="{{ url_for('static', filename=event.event_image) }}" alt="{{ event.event_name }}" class="img-fluid mb-4 w-50">
+        
+        <p class="card-text"><strong>Artist:</strong> {{ event.artist_name }}</p>
+        <p class="card-text"><strong>Venue:</strong> {{ event.event_venue }}</p>
+        <p class="card-text"><strong>Date:</strong> {{ event.event_date.strftime('%Y-%m-%d') }}</p>
+        <p class="card-text"><strong>Start Time:</strong> {{ event.event_start_time }}</p>
+        <p class="card-text"><strong>End Time:</strong> {{ event.event_end_time }}</p>
+      </div>
+    </div>
 
-    <!-- ACCORDION -->
-    <section>
-        <div class="container">
-            <div class="accordion mt-4 mb-4" id="accordionExample">
-                <div class="card">
-                    <div class="card-header" id="headingOne">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                                data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                Policies and Procedures
-                            </button>
-                        </h2>
-                    </div>
-
-                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-                        data-parent="#accordionExample">
-                        <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-                            squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
-                            nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
-                            single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft
-                            beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
-                            lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
-                            probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingTwo">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                                data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                Transportation
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                        <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-                            squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
-                            nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
-                            single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft
-                            beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
-                            lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
-                            probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingThree">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                                data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                Accommodation
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-                        data-parent="#accordionExample">
-                        <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-                            squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
-                            nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
-                            single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft
-                            beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
-                            lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
-                            probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingFour">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                                data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                Parking Near Venue
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
-                        data-parent="#accordionExample">
-                        <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-                            squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
-                            nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
-                            single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft
-                            beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
-                            lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
-                            probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingFive">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                                data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                Venue
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="collapseFive" class="collapse" aria-labelledby="headingFive"
-                        data-parent="#accordionExample">
-                        <div class="card-body">
-                            {{event.event_location}}
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingSix">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                                data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                                Dates
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
-                        <div class="card-body">
-                            {{event.date}}
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingSeven">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                                data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                                Ticket Availability
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven"
-                        data-parent="#accordionExample">
-                        <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-                            squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
-                            nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
-                            single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft
-                            beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
-                            lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
-                            probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingEight">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                                data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                                Ticket Packages
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="collapseEight" class="collapse" aria-labelledby="headingEight"
-                        data-parent="#accordionExample">
-                        <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-                            squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
-                            nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
-                            single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft
-                            beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
-                            lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
-                            probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-                    </div>
-                </div>
+    <!-- Reviews Section -->
+    <div class="reviews-section mb-4">
+      <h3>Reviews</h3>
+      {% if reviews %}
+        {% for review in reviews %}
+          <div class="card my-3">
+            <div class="card-body">
+              <p class="mb-1"><strong>{{ review.user.first_name }} {{ review.user.surname }}</strong> says:</p>
+              <p>{{ review.comment }}</p>
+              <p><strong>Rating:</strong> {{ review.rating }}/5</p>
             </div>
-    </section>
-    <!-- REVIEWS -->
-    <section id="testimonials">
-        <div class="container text-center mt-2 py-2">
-            <h3>Reviews</h3>
-            <hr>
-            <p>Comments and Ratings</p>
-        </div>
-        <div class="reviews-container">
-          {% for review in reviews %}
-            <div class="reviews-box">
-                <div class="box-top">
-                    <div class="profile">
-                        <div class="name-user">
-                            <strong>{{review.user.first_name}} {{review.user.surname}}</strong>
-                            <span>@{{review.user.emailid}}</span>
-                        </div>
-                    </div>
-                    <div class="reviews">
-                        <p>Rating: {{review.rating}} / 5</p>
-                    </div>
-                </div>
-                <div class="client-comment">
-                    <p>{{review.comment}}</p>
-                    <p>Review posted on: {{review.posted_datetime}}</p>
-                </div>
-            </div>
-            {% endfor %}
-    </section>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>No reviews yet. Be the first to review this event!</p>
+      {% endif %}
+    </div>
 
-    <!-- WRITING A REVIEW -->
-    <section class="writingreview">
-        <div class="wrapper">
-            <h3> Lorem ipsum dolor sit amet.</h3>
-            <form action="{{ url_for('event.submit_review'), event_id=event.event_id }}" method="POST">
-                <div class="rating">
-                    <label for="rating">Rating (1-5):</label>
-                    <select name="rating" id="rating" required>
-                        <option value="">Select Rating</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                </div>
-                <textarea name="comment" cols="30" rows="5" placeholder="Your Opinion..." required></textarea>
-                <div class="btn-group">
-                    <button type="submit" class="btn submit">Submit</button>
-                    <button type="clear" class="btn clear">Clear</button>
-                </div>
-            </form>
-        </div>
-    </section>
-
+    <!-- Review Form Section -->
+    <div class="review-form-section">
+      <h4>Leave a Review</h4>
+      <form method="POST" action="{{ url_for('event.submit_review', event_id=event.event_id) }}">
+        {{ render_form(form) }}
+      </form>
+    </div>
+  </div>
 {% endblock %}
