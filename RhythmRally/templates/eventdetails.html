@@ -16,6 +16,17 @@
       </div>
     </div>
 
+    <form method="POST">
+      <h2>{{ event.event_name }}</h2>
+      <p>Price per ticket: ${{ event.event_ticket_price }}</p>
+      <p>Tickets available: {{ event.tickets_available }}</p>
+      <div class="form-group">
+          <label for="num_tickets">Number of Tickets:</label>
+          <input type="number" id="num_tickets" name="num_tickets" min="1" max="{{ event.tickets_available }}" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Buy Tickets</button>
+  </form>
+
     <!-- Reviews Section -->
     <div class="reviews-section mb-4">
       <h3>Reviews</h3>
