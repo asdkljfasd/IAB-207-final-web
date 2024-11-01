@@ -4,124 +4,59 @@
 
 {% block content %}
 
-  <!-- HERO BANNER -->
-  <section id="home" style="background-image: url('static/Images/background.jpg');">
+<!-- HERO BANNER -->
+<section id="home" style="background-image: url('static/Images/background.jpg');">
     <div class="container">
-      <h5>UPCOMING EVENTS</h5>
-      <h1><span>Best Prices</span>This Year</h1>
-      <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do <br> eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-      <button>See Events</button>
+        <h5>UPCOMING EVENTS</h5>
+        <h1><span>Best Prices</span> This Year</h1>
+        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do <br> eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+        <button>See Events</button>
     </div>
+</section>
 
-  </section>
-  <!-- UPCOMING EVENTS -->
-  <section id="feature">
+<!-- UPCOMING EVENTS -->
+<section id="feature">
     <div class="container text-center mt-4 py-2">
-      <h3>Events</h3>
-      <hr>
-      <p>Browse the upcoming and latest events!</p>
+        <h3>Events</h3>
+        <hr>
+        <p>Browse the upcoming and latest events!</p>
     </div>
 
     <div class="dropdown text-center container py-3">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Categories
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="#">Jazz</a>
-        <a class="dropdown-item" href="#">Pop</a>
-        <a class="dropdown-item" href="#">Rock</a>
-        <a class="dropdown-item" href="#">RnB</a>
-        <a class="dropdown-item" href="#">Country</a>
-        <a class="dropdown-item" href="#">HipHop</a>
-        <a class="dropdown-item" href="#">Others</a>
-      </div>
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Categories
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Jazz</a>
+            <a class="dropdown-item" href="#">Pop</a>
+            <a class="dropdown-item" href="#">Rock</a>
+            <a class="dropdown-item" href="#">RnB</a>
+            <a class="dropdown-item" href="#">Country</a>
+            <a class="dropdown-item" href="#">HipHop</a>
+            <a class="dropdown-item" href="#">Others</a>
+        </div>
     </div>
 
-    <div class ="row mx-auto container-fluid">
-      <div class="product text-center col-lg-3 col-md-4 col-12">
-        <img class="img-fluid mb-3" src="static/Images/albumcover1.jpg" alt="">
-        <h5 class = "p-date">October 18th 2024 : Status : ACTIVE</h5>
-        <h3 class="p-name">The Kid Laroi TOUR</h3>
-        <h4 class="p-price">$200.00</h4>
-        <a href="{{ url_for('event.list_events') }}" style="background-color: #1d1d1d; font-size: 0.8rem; font-weight: 700; outline: none; border: none; color: aliceblue; padding: 13px 30px; cursor: pointer; text-transform: uppercase; transition: 0.3s ease;" class="btn btn-primary">Buy Ticket</a>
-      </div>
-      <div class="product text-center col-lg-3 col-md-4 col-12">
-        <img class="img-fluid mb-3" src="static/Images/albumcover2.jpg" alt="">
-        <h5 class = "p-date">February 24th 2025 : Status : SOLD OUT</h5>
-        <h3 class="p-name">Keshi Requiem WORLD TOUR</h3>
-        <h4 class="p-price">$250.00</h4>
-        <a href="{{ url_for('event.list_events') }}" style="background-color: #1d1d1d; font-size: 0.8rem; font-weight: 700; outline: none; border: none; color: aliceblue; padding: 13px 30px; cursor: pointer; text-transform: uppercase; transition: 0.3s ease;" class="btn btn-primary">Buy Ticket</a>
-      </div>
-      <div onclick="window.location.href='eventdetails.html'; "class="product text-center col-lg-3 col-md-4 col-12">
-        <img class="img-fluid mb-3" src="static/Images/albumcover3.jpg" alt="">
-        <h5 class = "p-date">December 17th 2024: Status : CANCELLED</h5>
-        <h3 class="p-name">Wave to Earth Concert</h3>
-        <h4 class="p-price">$150.00</h4>
-        <a href="{{ url_for('event.list_events') }}" style="background-color: #1d1d1d; font-size: 0.8rem; font-weight: 700; outline: none; border: none; color: aliceblue; padding: 13px 30px; cursor: pointer; text-transform: uppercase; transition: 0.3s ease;" class="btn btn-primary">Buy Ticket</a>
-      </div>
-      <div onclick="window.location.href='eventdetails.html'; "class="product text-center col-lg-3 col-md-4 col-12">
-        <img class="img-fluid mb-3" src="static/Images/albumcover4.jpg" alt="">
-        <h5 class = "p-date">July 10th 2025: Status : INACTIVE</h5>
-        <h3 class="p-name">SZA Concert</h3>
-        <h4 class="p-price">$200.00</h4>
-        <a href="{{ url_for('event.list_events') }}" style="background-color: #1d1d1d; font-size: 0.8rem; font-weight: 700; outline: none; border: none; color: aliceblue; padding: 13px 30px; cursor: pointer; text-transform: uppercase; transition: 0.3s ease;" class="btn btn-primary">Buy Ticket</a>
-      </div>
-      <div onclick="window.location.href='eventdetails.html'; "class="product text-center col-lg-3 col-md-4 col-12">
-      <img class="img-fluid mb-3" src="static/Images/albumcover5.jpg" alt="">
-      <h5 class = "p-date">April 10th 2026: Status : ACTIVE</h5>
-      <h3 class="p-name">Artist Name</h3>
-      <h4 class="p-price">$200.00</h4>
-      <a href="{{ url_for('event.list_events') }}" style="background-color: #1d1d1d; font-size: 0.8rem; font-weight: 700; outline: none; border: none; color: aliceblue; padding: 13px 30px; cursor: pointer; text-transform: uppercase; transition: 0.3s ease;" class="btn btn-primary">Buy Ticket</a>
-      </div>
-      <div onclick="window.location.href='eventdetails.html'; "class="product text-center col-lg-3 col-md-4 col-12">
-        <img class="img-fluid mb-3" src="static/Images/albumcover6.jpg" alt="">
-        <h5 class = "p-date">April 10th 2026: Status : ACTIVE</h5>
-        <h3 class="p-name">Artist Name</h3>
-        <h4 class="p-price">$200.00</h4>
-        <a href="{{ url_for('event.list_events') }}" style="background-color: #1d1d1d; font-size: 0.8rem; font-weight: 700; outline: none; border: none; color: aliceblue; padding: 13px 30px; cursor: pointer; text-transform: uppercase; transition: 0.3s ease;" class="btn btn-primary">Buy Ticket</a>
-      </div>
-      <div onclick="window.location.href='eventdetails.html'; "class="product text-center col-lg-3 col-md-4 col-12">
-        <img class="img-fluid mb-3" src="static/Images/albumcover7.jpg" alt="">
-        <h5 class = "p-date">April 10th 2026: Status : ACTIVE</h5>
-        <h3 class="p-name">Artist Name</h3>
-        <h4 class="p-price">$200.00</h4>
-        <a href="{{ url_for('event.list_events') }}" style="background-color: #1d1d1d; font-size: 0.8rem; font-weight: 700; outline: none; border: none; color: aliceblue; padding: 13px 30px; cursor: pointer; text-transform: uppercase; transition: 0.3s ease;" class="btn btn-primary">Buy Ticket</a>
-        </div>
-        <div onclick="window.location.href='eventdetails.html'; "class="product text-center col-lg-3 col-md-4 col-12">
-          <img class="img-fluid mb-3" src="static/Images/albumcover8.jpg" alt="">
-          <h5 class = "p-date">April 10th 2026: Status : ACTIVE</h5>
-          <h3 class="p-name">Artist Name</h3>
-          <h4 class="p-price">$200.00</h4>
-          <a href="{{ url_for('event.list_events') }}" style="background-color: #1d1d1d; font-size: 0.8rem; font-weight: 700; outline: none; border: none; color: aliceblue; padding: 13px 30px; cursor: pointer; text-transform: uppercase; transition: 0.3s ease;" class="btn btn-primary">Buy Ticket</a>
-          </div>
-          <div onclick="window.location.href='eventdetails.html'; "class="product text-center col-lg-3 col-md-4 col-12">
-            <img class="img-fluid mb-3" src="static/Images/albumcover9.jpg" alt="">
-            <h5 class = "p-date">April 10th 2026: Status : ACTIVE</h5>
-            <h3 class="p-name">Artist Name</h3>
-            <h4 class="p-price">$200.00</h4>
-            <a href="{{ url_for('event.list_events') }}" style="background-color: #1d1d1d; font-size: 0.8rem; font-weight: 700; outline: none; border: none; color: aliceblue; padding: 13px 30px; cursor: pointer; text-transform: uppercase; transition: 0.3s ease;" class="btn btn-primary">Buy Ticket</a>
-            </div>
-            <div onclick="window.location.href='eventdetails.html'; "class="product text-center col-lg-3 col-md-4 col-12">
-              <img class="img-fluid mb-3" src="static/Images/albumcover10.jpg" alt="">
-              <h5 class = "p-date">April 10th 2026: Status : ACTIVE</h5>
-              <h3 class="p-name">Artist Name</h3>
-              <h4 class="p-price">$200.00</h4>
-              <a href="{{ url_for('event.list_events') }}" style="background-color: #1d1d1d; font-size: 0.8rem; font-weight: 700; outline: none; border: none; color: aliceblue; padding: 13px 30px; cursor: pointer; text-transform: uppercase; transition: 0.3s ease;" class="btn btn-primary">Buy Ticket</a>
-              </div>
-              <div onclick="window.location.href='eventdetails.html'; "class="product text-center col-lg-3 col-md-4 col-12">
-                <img class="img-fluid mb-3" src="static/Images/albumcover11.jpg" alt="">
-                <h5 class = "p-date">April 10th 2026: Status : ACTIVE</h5>
-                <h3 class="p-name">Artist Name</h3>
-                <h4 class="p-price">$200.00</h4>
-                <a href="{{ url_for('event.list_events') }}" style="background-color: #1d1d1d; font-size: 0.8rem; font-weight: 700; outline: none; border: none; color: aliceblue; padding: 13px 30px; cursor: pointer; text-transform: uppercase; transition: 0.3s ease;" class="btn btn-primary">Buy Ticket</a>
+    <div class="row mx-auto container-fluid">
+        {% for i in range(12) %}
+        <div class="col-lg-3 col-md-4 col-12 mb-4">
+            <div class="card h-100">
+                <img class="card-img-top" src="static/Images/albumcover{{ i+1 }}.jpg" alt="Album Cover">
+                <div class="card-body text-center">
+                    <h5 class="card-title p-date">April 10th 2026: Status : ACTIVE</h5>
+                    <h3 class="card-title p-name">Artist Name</h3>
+                    <h4 class="card-text p-price">$200.00</h4>
+                    <a href="{{ url_for('event.list_events') }}" class="btn btn-primary" 
+                    style="background-color: #1d1d1d; font-size: 0.8rem; border: none; font-weight: 700; 
+                    color: aliceblue; padding: 13px 30px; cursor: pointer; text-transform: 
+                    uppercase;">
+                        Buy Ticket
+                    </a>
                 </div>
-                <div onclick="window.location.href='eventdetails.html';"class="product text-center col-lg-3 col-md-4 col-12">
-                  <img class="img-fluid mb-3" src="static/Images/albumcover12.jpg" alt="">
-                  <h5 class = "p-date">April 10th 2026: Status : ACTIVE</h5>
-                  <h3 class="p-name">Artist Name</h3>
-                  <h4 class="p-price">$200.00</h4>
-                  <a href="{{ url_for('event.list_events') }}" style="background-color: #1d1d1d; font-size: 0.8rem; font-weight: 700; outline: none; border: none; color: aliceblue; padding: 13px 30px; cursor: pointer; text-transform: uppercase; transition: 0.3s ease;" class="btn btn-primary">Buy Ticket</a>
-                  </div>
-  </div>
-  </section>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
 {% endblock %}
