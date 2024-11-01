@@ -6,6 +6,7 @@ from flask_login import current_user, login_required
 from datetime import datetime
 from sqlalchemy import select
 from werkzeug.utils import secure_filename
+from .forms import ReviewForm, EventForm
 
 eventbp = Blueprint('event', __name__, url_prefix='/events')
 
